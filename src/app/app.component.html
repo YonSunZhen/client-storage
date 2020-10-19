@@ -22,7 +22,7 @@
   <nz-layout class="content-container">
     <nz-content>
       <div class="sidebar-box">
-        <nz-sider class="sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+        <nz-sider class="sidebar" nzCollapsible  nzBreakpoint="md" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
           <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed" *ngFor="let menu of menus">
             <li nz-submenu [nzOpen]='menu.open' [nzTitle]="menu.title" [nzIcon]="menu.icon">
               <ul>
