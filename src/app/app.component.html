@@ -1,29 +1,45 @@
-<nz-layout>
-  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
-    <div class="logo"></div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" *ngFor="let menu of menus">
-      <li nz-submenu [nzOpen]='menu.open' [nzTitle]="menu.title" [nzIcon]="menu.icon">
-        <ul>
-          <li nz-menu-item nzMatchRouter *ngFor="let subMenu of menu.children">
-            <a [routerLink]="subMenu.link">{{subMenu.name}}</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </nz-sider>
-  <nz-layout>
-    <nz-header>
+<nz-layout class="app-container">
+  <nz-header class="header-container">
+    <!-- <nz-sider nzTheme="light" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <span class="ho-logo-top" href="https://itc.desaysv.com/hololens/">HOLOLENS</span>
+    </nz-sider> -->
+    <div class="header">
       <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
-    </nz-header>
+      <div class="title">Ng Antd Admin</div>
+      <div>
+        <nz-avatar *ngIf="user" [nzSrc]="user.picture" [nzText]="user.name" ></nz-avatar>
+      </div>
+      <!-- <div nz-dropdown nzTrigger="hover" [nzDropdownMenu]="userMenu">
+        <nz-avatar *ngIf="user" [nzText]="user.name"></nz-avatar>
+      </div>
+      <nz-dropdown-menu #userMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)='logout()'>注销</li>
+        </ul>
+      </nz-dropdown-menu> -->
+    </div>
+  </nz-header>
+  <nz-layout class="content-container">
     <nz-content>
-      <!-- <nz-breadcrumb>
-        <nz-breadcrumb-item>User</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-      </nz-breadcrumb> -->
+      <div class="sidebar-box">
+        <nz-sider class="sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+          <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed" *ngFor="let menu of menus">
+            <li nz-submenu [nzOpen]='menu.open' [nzTitle]="menu.title" [nzIcon]="menu.icon">
+              <ul>
+                <li nz-menu-item nzMatchRouter *ngFor="let subMenu of menu.children">
+                  <a [routerLink]="subMenu.link">{{subMenu.name}}</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nz-sider>
+      </div>
       <div class="inner-content">
         <router-outlet></router-outlet>
       </div>
     </nz-content>
-    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+    <nz-layout class="footer-container">
+      <nz-footer> 粤ICP备18135123号  </nz-footer>
+    </nz-layout>
   </nz-layout>
 </nz-layout>

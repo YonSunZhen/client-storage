@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgoModule } from '@ngo';
 import { IconsProviderModule } from './icons-provider.module';
+import { AdminModule } from '@admin';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { IconsProviderModule } from './icons-provider.module';
     BrowserModule,
     NgoModule.forRoot(),
     BrowserAnimationsModule,
-    IconsProviderModule
+    IconsProviderModule,
+    AdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]

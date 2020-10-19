@@ -19,4 +19,13 @@ export class AppComponent {
       ]
     }
   ];
+
+  user = {
+    name: 'syz',
+    picture: 'http://qiniu.yonsunzhen.cn/%E5%A4%B4%E5%83%8F.jpg'
+  };
+
+  async logout() {
+
+  }
 }
