@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ng-antd-admin';
+  isCollapsed = false;
+
+  menus = [
+    {
+      title: 'demo',
+      icon: 'bars',
+      open: false,
+      children: [
+        { link: './demo/demo1', name: 'demo1' },
+        { link: './demo/demo2', name: 'demo2' }
+      ]
+    }
+  ];
 }

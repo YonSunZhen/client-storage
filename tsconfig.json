@@ -14,7 +14,19 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    // typeRoots不加报错
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "paths": {
+      "@ngo": [
+        "./src/app/@ngo"
+      ],
+      "@admin": [
+        "./src/app/@admin"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
