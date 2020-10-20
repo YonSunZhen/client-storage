@@ -25,7 +25,7 @@ export class AdHttpClient extends HttpClient {
   /**
    * http get
    */
-  async hoGet(url: string, options?: AdHttpParams) {
+  async adGet(url: string, options?: AdHttpParams) {
     const customErrors = options ? options.customErrors : null;
     let result;
     try {
@@ -45,7 +45,7 @@ export class AdHttpClient extends HttpClient {
   /**
    * http post
    */
-  async hoPost(url: string, body: any | null, options?: AdHttpParams) {
+  async adPost(url: string, body: any | null, options?: AdHttpParams) {
     const params = options ? options.params : {};
     const customErrors = options ? options.customErrors : null;
     let result;
@@ -64,7 +64,7 @@ export class AdHttpClient extends HttpClient {
   /**
    * http put
    */
-  async hoPut(url: string, body: any | null, options?: AdHttpParams) {
+  async adPut(url: string, body: any | null, options?: AdHttpParams) {
     const params = options ? options.params : {};
     const customErrors = options ? options.customErrors : null;
     let result;
@@ -83,7 +83,7 @@ export class AdHttpClient extends HttpClient {
   /**
    * http delete
    */
-  async hoDelete(url: string, options?: AdHttpParams) {
+  async adDelete(url: string, options?: AdHttpParams) {
     const params = options ? options.params : {};
     const customErrors = options ? options.customErrors : null;
     let result;
