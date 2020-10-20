@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { StoreRsService } from '@admin';
+
 @Component({
   selector: 'app-demo1',
   templateUrl: './demo1.component.html',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Demo1Component implements OnInit {
 
-  constructor() { }
+  constructor(
+    private storeRsService: StoreRsService
+  ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    // const test = await this.storeRsService.getStoreRsTree();
+    // console.log('这里是调试1');
+    // console.log(test);
+
   }
 
 }
