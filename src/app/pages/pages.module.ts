@@ -3,19 +3,19 @@ import { CommonModule } from '@angular/common';
 import { PagesComponent } from './pages.component';
 
 import { PagesRoutingModule } from './pages-routing.module';
-import { Demo1Component } from './demo1/demo1.component';
-import { Demo2Component } from './demo2/demo2.component';
+import { AllFilesComponent } from './all-files/all-files.component';
+import { NgoModule } from '@ngo';
 
 
 @NgModule({
   declarations: [
     PagesComponent,
-    Demo1Component,
-    Demo2Component
+    AllFilesComponent,
   ],
   imports: [
     CommonModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    NgoModule
   ]
 })
 export class PagesModule { }

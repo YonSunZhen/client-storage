@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
-import { Demo1Component } from './demo1/demo1.component';
-import { Demo2Component } from './demo2/demo2.component';
+import { AllFilesComponent } from './all-files/all-files.component';
 
 export const routes: Routes = [
   {
@@ -10,26 +9,22 @@ export const routes: Routes = [
     component: PagesComponent,
     children: [
       {
-        path: 'demo',
+        path: 'files',
         children: [
           {
-            path: 'demo1',
-            component: Demo1Component,
-          },
-          {
-            path: 'demo2',
-            component: Demo2Component,
+            path: 'all-files',
+            component: AllFilesComponent,
           },
           {
             path: '',
-            redirectTo: 'demo1',
+            redirectTo: 'all-files',
             pathMatch: 'full'
           },
         ],
       },
       {
         path: '',
-        redirectTo: 'demo',
+        redirectTo: 'files',
         pathMatch: 'full'
       },
     ],

@@ -1,0 +1,29 @@
+.card-body {
+
+  display: flex;
+  flex-wrap: wrap;
+
+  .card-body-item {
+    width: 5.25rem;
+    height: 5.25rem;
+    margin-right: 2rem;
+    margin-bottom: 1.5rem;
+    .item-image {
+      text-align: center;
+    }
+  
+    .item-file-name {
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+  }
+}
+
+.card-body-item:hover {
+  cursor: pointer;
+  background-color: azure;
+}
+
+.extra-button {
+  margin-right: 0.5rem;
+}

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NzMenu } from '@ngo';
 
 @Component({
   selector: 'app-root',
@@ -8,17 +9,19 @@ import { Component } from '@angular/core';
 export class AppComponent {
   isCollapsed = false;
 
-  menus = [
-    {
-      title: 'demo',
-      icon: 'bars',
-      open: false,
-      children: [
-        { link: './demo/demo1', name: 'demo1' },
-        { link: './demo/demo2', name: 'demo2' }
-      ]
-    }
-  ];
+  menus: NzMenu = {
+    mode: 'inline',
+    data: [
+      {
+        title: '全部文件',
+        icon: 'folder',
+        open: true,
+        children: [
+          { link: './files/all-files', name: '所有文件', matchRouter: true }
+        ]
+      }
+    ]
+  };
 
   user = {
     name: 'syz',

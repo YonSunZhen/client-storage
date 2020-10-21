@@ -5,7 +5,7 @@
     </nz-sider> -->
     <div class="header">
       <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
-      <div class="title">Ng Antd Admin</div>
+      <div class="title">Storage Admin</div>
       <div>
         <nz-avatar *ngIf="user" [nzSrc]="user.picture" [nzText]="user.name" ></nz-avatar>
       </div>
@@ -23,14 +23,23 @@
     <nz-content>
       <div class="sidebar-box">
         <nz-sider class="sidebar" nzCollapsible  nzBreakpoint="md" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
-          <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed" *ngFor="let menu of menus">
-            <li nz-submenu [nzOpen]='menu.open' [nzTitle]="menu.title" [nzIcon]="menu.icon">
-              <ul>
-                <li nz-menu-item nzMatchRouter *ngFor="let subMenu of menu.children">
-                  <a [routerLink]="subMenu.link">{{subMenu.name}}</a>
-                </li>
-              </ul>
-            </li>
+          <ul nz-menu [nzMode]="menus.mode" [nzInlineIndent]="20"  [nzInlineCollapsed]="isCollapsed" *ngFor="let menu of menus.data">
+            <ng-container *ngIf="menu.children">
+              <li nz-submenu [nzOpen]='menu.open' [nzTitle]="menu.title" [nzIcon]="menu.icon">
+                <ul>
+                  <li nz-menu-item [nzMatchRouter]="subMenu.matchRouter" *ngFor="let subMenu of menu.children">
+                    <i *ngIf="subMenu.icon" nz-icon [nzType]="subMenu.icon"></i>
+                    <a [routerLink]="subMenu.link">{{subMenu.name}}</a>
+                  </li>
+                </ul>
+              </li>
+            </ng-container>
+            <ng-container *ngIf="!menu.children">
+              <li nz-menu-item [nzMatchRouter]="menu.matchRouter">
+                <i nz-icon [nzType]="menu.icon"></i>
+                <a [routerLink]="menu.link">{{menu.name}}</a>
+              </li>
+            </ng-container>
           </ul>
         </nz-sider>
       </div>
