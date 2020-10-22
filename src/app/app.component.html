@@ -6,17 +6,14 @@
     <div class="header">
       <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
       <div class="title">Storage Admin</div>
-      <div>
-        <nz-avatar *ngIf="user" [nzSrc]="user.picture" [nzText]="user.name" ></nz-avatar>
-      </div>
-      <!-- <div nz-dropdown nzTrigger="hover" [nzDropdownMenu]="userMenu">
-        <nz-avatar *ngIf="user" [nzText]="user.name"></nz-avatar>
+      <div nz-dropdown nzTrigger="hover" [nzDropdownMenu]="userMenu">
+        <nz-avatar *ngIf="user" [nzSrc]="user.picture" [nzText]="user.name"></nz-avatar>
       </div>
       <nz-dropdown-menu #userMenu="nzDropdownMenu">
         <ul nz-menu>
           <li nz-menu-item (click)='logout()'>注销</li>
         </ul>
-      </nz-dropdown-menu> -->
+      </nz-dropdown-menu>
     </div>
   </nz-header>
   <nz-layout class="content-container">

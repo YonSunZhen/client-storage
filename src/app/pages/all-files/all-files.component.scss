@@ -10,6 +10,11 @@
     margin-bottom: 1.5rem;
     .item-image {
       text-align: center;
+
+      .upload-img {
+        width: 3.5rem; 
+        height: 3.5rem;
+      }
     }
   
     .item-file-name {
@@ -26,4 +31,18 @@
 
 .extra-button {
   margin-right: 0.5rem;
+}
+
+.head-nav {
+  font-size: 0.5rem;
+
+  .dividion {
+    color: gray; 
+    margin-left: 5px;
+    font-size: 1rem;
+  }
+
+  .queue-word {
+    margin-left: 5px;
+  }
 }

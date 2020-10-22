@@ -1,117 +1,57 @@
-<nz-card nzBorderless="true" nzTitle="所有文件" [nzExtra]="extraTemplate">
+<nz-card nzBorderless="true" [nzTitle]="headTemplate" [nzExtra]="extraTemplate" [nzLoading]="isCardLoading">
   <div class="card-body">
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">新建文件夹</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
-    <div class="card-body-item">
-      <div class="item-image">
-        <img src="assets/file.png" />
-      </div>
-      <div class="item-file-name">haha</div>
-    </div>
+    <ng-container *ngFor="let file of fileList">
+      <ng-container *ngIf="file.entityType === 1">
+        <div class="card-body-item" (contextmenu)="contextMenu($event, menu)" (click)="onClickFolder(file.rsNo, file.folderName)">
+          <div class="item-image">
+            <img src="assets/file.png" />
+          </div>
+          <div class="item-file-name">{{file.folderName}}</div>
+        </div>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item><i nz-icon [nzType]="'delete'"></i>删除</li>
+            <li nz-menu-item>2nd menu item</li>
+            <li nz-menu-item nzDisabled>disabled menu item</li>
+          </ul>
+        </nz-dropdown-menu>
+      </ng-container>
+      
+      <ng-container *ngIf="file.entityType === 2">
+        <div class="card-body-item" (contextmenu)="contextMenu($event, menu)" (click)="onClickImg(file.rsNo, file.imgOriginName)">
+          <div class="item-image">
+            <img [src]="file.rsPath" class="upload-img"/>
+          </div>
+          <div class="item-file-name">{{file.imgOriginName}}</div>
+        </div>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item><i nz-icon [nzType]="'delete'"></i>删除</li>
+            <li nz-menu-item>复制外链</li>
+          </ul>
+        </nz-dropdown-menu>
+      </ng-container>
+    </ng-container>
   </div>
   
 </nz-card>
+
+<ng-template #headTemplate>
+  <div>所有文件</div>
+  <div class="head-nav" *ngIf="clickQueue.length > 1">
+    <a href="#" (click)="onClickBack($event)">返回上一级</a>
+    <span class="dividion">|</span>
+    <ng-container *ngFor="let item of clickQueue; let i = index">
+      <span class="queue-word">{{item.name}}</span>
+      <span class="dividion" *ngIf="i < clickQueue.length - 1">></span>
+    </ng-container>
+
+  </div>
+</ng-template>
+
 <ng-template #extraTemplate>
   <button nz-button class="extra-button" nzType="primary" nzShape="round"><i nz-icon nzType="upload"></i>上传文件</button>
-  <button nz-button nzShape="round"><i nz-icon nzType="folder-add"></i>新建文件夹</button>
+  <button nz-button nzShape="round">
+    <i nz-icon nzType="folder-add"></i>新建文件夹
+  </button>
 </ng-template>
