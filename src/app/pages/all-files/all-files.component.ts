@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { StoreRsService, StoreRsResponse, StoreRsTreeResponse } from '@admin';
+import {
+  StoreRsService, StoreRsResponse, StoreRsTreeResponse,
+  FolderService,
+  ImageService, ImagePostParams
+ } from '@admin';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
+import { copy } from 'iclipboard';
 
 @Component({
   selector: 'app-all-files',
@@ -13,10 +20,16 @@ export class AllFilesComponent implements OnInit {
   currNo = '100';
   fileList: StoreRsResponse[];
   fileTreeData: StoreRsTreeResponse;
+  isNewFolder = false;
   isCardLoading = false;
+  newFolderForm: FormGroup;
+
   constructor(
     private nzContextMenuService: NzContextMenuService,
-    private storeRsService: StoreRsService
+    private fb: FormBuilder,
+    private storeRsService: StoreRsService,
+    private folderService: FolderService,
+    private imageService: ImageService
   ) { }
 
   async ngOnInit() {
@@ -46,25 +59,91 @@ export class AllFilesComponent implements OnInit {
     this.fileList = this._getFileList(_noObj.no, this.fileTreeData);
   }
 
+  onNewFolder() {
+    this._openNewFolderInput();
+    this._initNewFolderForm();
+  }
+
+  async onNewCheck(check: boolean) {
+    if (check) {
+      const _folderName = this.newFolderForm.get('folderName').value;
+      const _curNo = this.currNo;
+      const _addRes = await this.folderService.addFolder({rsParentNo: _curNo, folderName: _folderName});
+      if (_addRes.code === 0) {
+        this._closeNewFolderInput();
+        await this._reloadFileList();
+      }
+    } else {
+      this._closeNewFolderInput();
+    }
+
+  }
+
+  // 必须是箭头函数这种写法
+  onUploadFiles = (files: NzUploadXHRArgs) => {
+    const _file = files.file;
+    const _rsParentNo = this.currNo;
+    const _imgType = _file.type.split('/')[1];
+    const _imgOriginName = _file.name.includes('.') ? _file.name.split('.')[0] : _file.name;
+    const _sendData: ImagePostParams = {
+      rsParentNo: _rsParentNo,
+      imgType: _imgType,
+      imgOriginName: _imgOriginName,
+      imgData: _file
+    };
+    const addRes = this.imageService.addImage(_sendData);
+    return addRes.subscribe(async res => {
+      if (res.code === 0) {
+        await this._reloadFileList();
+      }
+    });
+  }
+
+  onClickCopy(path: string) {
+    copy(path);
+  }
+
+  private async _reloadFileList() {
+    this.fileTreeData = (await this.storeRsService.getStoreRsTree()).data;
+    this.fileList = this._getFileList(this.currNo, this.fileTreeData);
+  }
+
+  private _openNewFolderInput() {
+    this.isNewFolder = true;
+  }
+
+  private _closeNewFolderInput() {
+    this.isNewFolder = false;
+  }
+
+  private _initNewFolderForm() {
+    this.newFolderForm = this.fb.group({
+      folderName: ['新建文件夹']
+    });
+  }
+
+
+
   private _updateClickData(no?: string, name?: string) {
+    this._closeNewFolderInput();
     this.currNo = no;
     this.clickQueue.push({no, name});
   }
 
   private _getStoreRsByNo(no: string, treeData: StoreRsTreeResponse): StoreRsResponse[] {
     let res: StoreRsResponse[] = [];
-    const _recursionTree = (data: StoreRsTreeResponse) => {
+    const _recursionTreeFn = (data: StoreRsTreeResponse) => {
       const _data: StoreRsTreeResponse = JSON.parse(JSON.stringify(data));
       if (no === _data.data.rsNo) {
         res = _data.children.map(_d => _d.data);
         return;
       } else {
         _data.children.forEach(_d => {
-          _recursionTree(_d);
+          _recursionTreeFn(_d);
         });
       }
     };
-    _recursionTree(treeData);
+    _recursionTreeFn(treeData);
     return res;
   }
 
@@ -73,7 +152,7 @@ export class AllFilesComponent implements OnInit {
     const _data: StoreRsResponse[] = JSON.parse(JSON.stringify(data));
     _data.forEach(_d => {
       if (_d.entityType === 2) {
-        _d.rsPath = `${host}${_d.rsPath }`;
+        _d.rsPath = `${host}${_d.rsPath}`;
       }
     });
     return _data;

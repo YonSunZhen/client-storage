@@ -8,7 +8,8 @@ import {
   BarsOutline, FolderOutline,
   FolderTwoTone, UploadOutline,
   FolderAddOutline, DeleteOutline,
-  RollbackOutline
+  RollbackOutline, CheckOutline,
+  CloseOutline
 } from '@ant-design/icons-angular/icons';
 
 const icons = [
@@ -18,7 +19,8 @@ const icons = [
   BarsOutline, FolderOutline,
   FolderTwoTone, UploadOutline,
   FolderAddOutline, DeleteOutline,
-  RollbackOutline
+  RollbackOutline, CheckOutline,
+  CloseOutline
 ];
 
 @NgModule({

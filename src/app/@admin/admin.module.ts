@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdHttpModule } from './http';
 
-import { StoreRsService } from './services';
+import { StoreRsService, FolderService, ImageService } from './services';
 
 @NgModule({
   declarations: [],
@@ -12,7 +12,9 @@ import { StoreRsService } from './services';
     AdHttpModule
   ],
   providers: [
-    StoreRsService
+    StoreRsService,
+    FolderService,
+    ImageService
   ]
 })
 export class AdminModule { }

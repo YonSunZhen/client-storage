@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~10.1.5",
     "@angular/router": "~10.1.5",
     "echarts": "^4.8.0",
+    "iclipboard": "^1.0.1",
     "moment": "^2.27.0",
     "ng-zorro-antd": "^10.0.0",
     "ng2-smart-table": "^1.6.0",

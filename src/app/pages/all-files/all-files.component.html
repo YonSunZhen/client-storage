@@ -1,5 +1,22 @@
 <nz-card nzBorderless="true" [nzTitle]="headTemplate" [nzExtra]="extraTemplate" [nzLoading]="isCardLoading">
   <div class="card-body">
+    <ng-container *ngIf="isNewFolder">
+      <div class="card-body-item">
+        <div class="item-image">
+          <img src="assets/file.png" />
+        </div>
+        <div class="item-file-input" [formGroup]="newFolderForm">
+          <nz-input-group nzSize="small"  [nzAddOnAfter]="addOnAfterTemplate">
+            <input type="text" formControlName="folderName" nz-input />
+          </nz-input-group>
+        </div>
+      </div>
+      <ng-template #addOnAfterTemplate>
+        <i class="item-file-icon" nz-icon nz-button nzType="check" nzTheme="outline" (click)="onNewCheck(true)"></i>
+        <i class="item-file-icon" nz-icon nzType="close" nzTheme="outline" (click)="onNewCheck(false)"></i>
+      </ng-template>
+    </ng-container>
+
     <ng-container *ngFor="let file of fileList">
       <ng-container *ngIf="file.entityType === 1">
         <div class="card-body-item" (contextmenu)="contextMenu($event, menu)" (click)="onClickFolder(file.rsNo, file.folderName)">
@@ -27,7 +44,7 @@
         <nz-dropdown-menu #menu="nzDropdownMenu">
           <ul nz-menu>
             <li nz-menu-item><i nz-icon [nzType]="'delete'"></i>删除</li>
-            <li nz-menu-item>复制外链</li>
+            <li nz-menu-item (click)="onClickCopy(file.rsPath)">复制外链</li>
           </ul>
         </nz-dropdown-menu>
       </ng-container>
@@ -49,9 +66,13 @@
   </div>
 </ng-template>
 
-<ng-template #extraTemplate>
-  <button nz-button class="extra-button" nzType="primary" nzShape="round"><i nz-icon nzType="upload"></i>上传文件</button>
-  <button nz-button nzShape="round">
+<ng-template #extraTemplate style="display: flex;">
+  <nz-upload  [nzShowUploadList]="false" [nzCustomRequest]="onUploadFiles">
+    <button nz-button class="extra-button" nzType="primary" nzShape="round" type="file">
+      <i nz-icon nzType="upload"></i>上传文件
+    </button>
+  </nz-upload>
+  <button nz-button nzShape="round" (click)="onNewFolder()">
     <i nz-icon nzType="folder-add"></i>新建文件夹
   </button>
 </ng-template>
