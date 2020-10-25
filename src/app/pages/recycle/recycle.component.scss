@@ -1,0 +1,75 @@
+:host {
+
+  ::ng-deep .ant-card-extra{
+    display: flex;
+  }
+
+  .card-body {
+
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+  
+    .card-body-item {
+      // width: 5.25rem;
+      // height: 5.25rem;
+      margin-left: 0.5rem;
+      margin-right: 2.5rem;
+      margin-bottom: 1.5rem;
+      .item-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 3.5rem;
+  
+        .upload-img {
+          max-width: 3.5rem; 
+          height: auto;
+        }
+      }
+    
+      .item-file-name {
+        margin-top: 0.5rem;
+        text-align: center;
+      }
+  
+      .item-file-input {
+        width: 9rem;
+        display: flex;
+        margin-top: 0.5rem;
+        text-align: center;
+      }
+  
+    }
+  }
+  
+  .item-file-icon:hover {
+    cursor: pointer;
+    color: aqua;
+  }
+  
+  .card-body-item:hover {
+    cursor: pointer;
+    background-color: azure;
+  }
+  
+  .extra-button {
+    margin-right: 0.5rem;
+  }
+  
+  .head-nav {
+    font-size: 0.5rem;
+  
+    .dividion {
+      color: gray; 
+      margin-left: 5px;
+      font-size: 1rem;
+    }
+  
+    .queue-word {
+      margin-left: 5px;
+    }
+  }
+
+}

@@ -34,7 +34,7 @@ export class AllFilesComponent implements OnInit {
 
   async ngOnInit() {
     this.isCardLoading = true;
-    this.fileTreeData = (await this.storeRsService.getStoreRsTree()).data;
+    this.fileTreeData = await this.storeRsService.getStoreRsTree();
     this.fileList = this._getFileList('100', this.fileTreeData);
     this.isCardLoading = false;
   }
@@ -113,8 +113,13 @@ export class AllFilesComponent implements OnInit {
   }
 
   private async _reloadFileList() {
-    this.fileTreeData = (await this.storeRsService.getStoreRsTree()).data;
+    this.fileTreeData = await this.storeRsService.getStoreRsTree();
     this.fileList = this._getFileList(this.currNo, this.fileTreeData);
+  }
+
+  private _getFileList(no: string, treeData: StoreRsTreeResponse) {
+    const res = this._getStoreRsByNo(no, treeData);
+    return res;
   }
 
   private _openNewFolderInput() {
@@ -153,23 +158,6 @@ export class AllFilesComponent implements OnInit {
       }
     };
     _recursionTreeFn(treeData);
-    return res;
-  }
-
-  private _formatStoreRs(data: StoreRsResponse[]) {
-    const host = 'http://localhost:8080'; // 注入依赖
-    const _data: StoreRsResponse[] = JSON.parse(JSON.stringify(data));
-    _data.forEach(_d => {
-      if (_d.entityType === 2) {
-        _d.rsPath = `${host}${_d.rsPath}`;
-      }
-    });
-    return _data;
-  }
-
-  private _getFileList(no: string, treeData: StoreRsTreeResponse) {
-    const _fileList = this._getStoreRsByNo(no, treeData);
-    const res = this._formatStoreRs(_fileList);
     return res;
   }
 

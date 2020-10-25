@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common';
 import { AdHttpModule } from './http';
 
 import { StoreRsService, FolderService, ImageService } from './services';
+import { StoreRsApi } from './services';
+
+const SERVICES = [StoreRsService, FolderService, ImageService ];
+const API = [ StoreRsApi ];
 
 @NgModule({
   declarations: [],
@@ -12,9 +16,8 @@ import { StoreRsService, FolderService, ImageService } from './services';
     AdHttpModule
   ],
   providers: [
-    StoreRsService,
-    FolderService,
-    ImageService
+    ...SERVICES,
+    ...API
   ]
 })
 export class AdminModule { }

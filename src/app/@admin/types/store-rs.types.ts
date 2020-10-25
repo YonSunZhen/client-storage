@@ -2,7 +2,7 @@ import { FolderResponse } from './folder.types';
 import { ImageResponse } from './image.types';
 
 export interface StoreRsTreeResponse {
-  data: StoreRsResponse;
+  data?: StoreRsResponse;
   children?: StoreRsTreeResponse[];
 }
 

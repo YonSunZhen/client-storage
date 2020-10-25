@@ -30,8 +30,6 @@
             <li nz-menu-item (click)="onDelRs(file.rsNo)">
               <i nz-icon [nzType]="'delete'"></i>删除
             </li>
-            <li nz-menu-item>2nd menu item</li>
-            <li nz-menu-item nzDisabled>disabled menu item</li>
           </ul>
         </nz-dropdown-menu>
       </ng-container>
@@ -48,7 +46,9 @@
             <li nz-menu-item (click)="onDelRs(file.rsNo)">
               <i nz-icon [nzType]="'delete'"></i>删除
             </li>
-            <li nz-menu-item (click)="onClickCopy(file.rsPath)">复制外链</li>
+            <li nz-menu-item (click)="onClickCopy(file.rsPath)">
+              <i nz-icon [nzType]="'copy'"></i>复制外链
+            </li>
           </ul>
         </nz-dropdown-menu>
       </ng-container>

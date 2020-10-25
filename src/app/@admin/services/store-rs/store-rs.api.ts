@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AD_HOST_URL, AdResponse } from '../http';
+import { AD_HOST_URL, AdResponse } from '../../http';
 import { HttpClient } from '@angular/common/http';
-import { StoreRsResponse, StoreRsParams, StoreRsTreeResponse } from '../types';
+import { StoreRsResponse, StoreRsParams, StoreRsTreeResponse } from '../../types';
 
 @Injectable()
-export class StoreRsService {
+export class StoreRsApi {
   private _baseUrl = AD_HOST_URL().clone().push('store_rs');
 
   constructor(private httpClient: HttpClient) { }
@@ -17,6 +17,11 @@ export class StoreRsService {
 
   updateRs(rsNo: string, param?: StoreRsParams) {
     const _url = this._baseUrl.clone().push(rsNo).value();
-    return this.httpClient.put<AdResponse<StoreRsTreeResponse>>(_url, param).toPromise();
+    return this.httpClient.put<AdResponse<number>>(_url, param).toPromise();
+  }
+
+  getStoreRs(param?: StoreRsParams) {
+    const _url = this._baseUrl.clone().params(param).value();
+    return this.httpClient.get<AdResponse<StoreRsResponse[]>>(_url).toPromise();
   }
 }
