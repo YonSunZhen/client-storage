@@ -26,7 +26,7 @@
                 <ul>
                   <li nz-menu-item [nzMatchRouter]="subMenu.matchRouter" *ngFor="let subMenu of menu.children">
                     <i *ngIf="subMenu.icon" nz-icon [nzType]="subMenu.icon"></i>
-                    <a [routerLink]="subMenu.link">{{subMenu.name}}</a>
+                    <span><a [routerLink]="subMenu.link">{{subMenu.name}}</a></span>
                   </li>
                 </ul>
               </li>
@@ -34,9 +34,11 @@
             <ng-container *ngIf="!menu.children">
               <li nz-menu-item [nzMatchRouter]="menu.matchRouter">
                 <i nz-icon [nzType]="menu.icon"></i>
-                <a [routerLink]="menu.link">{{menu.name}}</a>
+                <!-- 必须使用span将a标签包起来 不然缩进菜单时有bug -->
+                <span><a [routerLink]="menu.link">{{menu.name}}</a></span>
               </li>
             </ng-container>
+            
           </ul>
         </nz-sider>
       </div>

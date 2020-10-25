@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { AllFilesComponent } from './all-files/all-files.component';
+import { RecycleComponent } from './recycle/recycle.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,10 @@ export const routes: Routes = [
             pathMatch: 'full'
           },
         ],
+      },
+      {
+        path: 'recycle',
+        component: RecycleComponent,
       },
       {
         path: '',

@@ -19,6 +19,12 @@ export class AppComponent {
         children: [
           { link: './files/all-files', name: '所有文件', matchRouter: true }
         ]
+      },
+      {
+        name: '回收站',
+        icon: 'delete',
+        matchRouter: true,
+        link: './recycle'
       }
     ]
   };

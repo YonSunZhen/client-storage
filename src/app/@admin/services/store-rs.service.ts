@@ -14,4 +14,9 @@ export class StoreRsService {
     const _url = this._baseUrl.clone().params(param).push('tree').value();
     return this.httpClient.get<AdResponse<StoreRsTreeResponse>>(_url).toPromise();
   }
+
+  updateRs(rsNo: string, param?: StoreRsParams) {
+    const _url = this._baseUrl.clone().push(rsNo).value();
+    return this.httpClient.put<AdResponse<StoreRsTreeResponse>>(_url, param).toPromise();
+  }
 }

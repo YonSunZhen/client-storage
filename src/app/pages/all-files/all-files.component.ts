@@ -103,6 +103,15 @@ export class AllFilesComponent implements OnInit {
     copy(path);
   }
 
+  async onDelRs(rsNo: string) {
+    const _updateRsRes = await this.storeRsService.updateRs(rsNo, {rsStatus: 0});
+    if (_updateRsRes.code === 0) {
+      await this._reloadFileList();
+    } else {
+
+    }
+  }
+
   private async _reloadFileList() {
     this.fileTreeData = (await this.storeRsService.getStoreRsTree()).data;
     this.fileList = this._getFileList(this.currNo, this.fileTreeData);
