@@ -24,4 +24,12 @@ export class StoreRsApi {
     const _url = this._baseUrl.clone().params(param).value();
     return this.httpClient.get<AdResponse<StoreRsResponse[]>>(_url).toPromise();
   }
+
+  delRecycle(rsNo: string) {
+    console.log('这里是调试2');
+    console.log({rsNo});
+
+    const _url = this._baseUrl.clone().params({rsNo}).push('recycle').value();
+    return this.httpClient.delete<AdResponse<string>>(_url).toPromise();
+  }
 }

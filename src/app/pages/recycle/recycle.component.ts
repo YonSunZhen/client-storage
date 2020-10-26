@@ -34,7 +34,11 @@ export class RecycleComponent implements OnInit {
   }
 
   async onDel(rsNo: string) {
-
+    const _rsNo = `${rsNo}`;
+    const _delRes = await this.storeRsService.delRecycle(_rsNo);
+    if (_delRes.code === 0) {
+      this.fileList = await this._getFileList();
+    }
   }
 
   onClearRecycle() {

@@ -36,6 +36,11 @@ export class StoreRsService {
     return res;
   }
 
+  async delRecycle(rsNo: string) {
+    const _res = await this.storeRsApi.delRecycle(rsNo);
+    return _res;
+  }
+
   private _formatRs(data: StoreRsResponse[]) {
 
     const host = 'http://localhost:8080'; // 注入依赖
