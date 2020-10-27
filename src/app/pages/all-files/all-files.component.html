@@ -19,7 +19,7 @@
 
     <ng-container *ngFor="let file of fileList">
       <ng-container *ngIf="file.entityType === 1">
-        <div class="card-body-item" (contextmenu)="contextMenu($event, menu)" (click)="onClickFolder(file.rsNo, file.folderName)">
+        <div class="card-body-item" (contextmenu)="contextMenu($event, menu)" (click)="onClickFolder(file)">
           <div class="item-image">
             <img src="assets/file.png" />
           </div>
@@ -35,7 +35,7 @@
       </ng-container>
       
       <ng-container *ngIf="file.entityType === 2">
-        <div class="card-body-item" (contextmenu)="contextMenu($event, menu)" (click)="onClickImg(file.rsNo, file.imgOriginName)">
+        <div class="card-body-item" (contextmenu)="contextMenu($event, menu)" (click)="onClickImg(file)">
           <div class="item-image">
             <img [src]="file.rsPath" class="upload-img"/>
           </div>
@@ -80,3 +80,9 @@
     <i nz-icon nzType="folder-add"></i>新建文件夹
   </button>
 </ng-template>
+
+<nz-modal [nzStyle]="{ top: '0px' }" [(nzVisible)]="isImgModalVisible"  [nzFooter]="null" (nzOnCancel)="onHandleCancel()">
+  <div class="modal-content">
+    <img [src]="clickedImgPath">
+  </div>
+</nz-modal>

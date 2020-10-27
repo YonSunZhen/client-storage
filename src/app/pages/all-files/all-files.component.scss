@@ -1,8 +1,9 @@
 :host {
 
-  ::ng-deep .ant-card-extra{
+  ::ng-deep .ant-card-extra {
     display: flex;
   }
+
 
   .card-body {
 
@@ -72,4 +73,38 @@
     }
   }
 
+}
+
+::ng-deep .ant-modal {
+  margin: 0;
+  width: auto !important;
+}
+
+::ng-deep .ant-modal-content {
+  width: 100vw;
+  height: 96vh;
+  opacity: 1;
+  background-color: transparent;
+}
+
+::ng-deep .ant-modal-close {
+  color: white !important;
+}
+
+::ng-deep .ant-modal-body {
+  width: 100%;
+  height: 100%;
+}
+
+.modal-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }

@@ -22,7 +22,9 @@ export class AllFilesComponent implements OnInit {
   fileTreeData: StoreRsTreeResponse;
   isNewFolder = false;
   isCardLoading = false;
+  isImgModalVisible = false;
   newFolderForm: FormGroup;
+  clickedImgPath = '';
 
   constructor(
     private nzContextMenuService: NzContextMenuService,
@@ -43,13 +45,17 @@ export class AllFilesComponent implements OnInit {
     this.nzContextMenuService.create($event, menu);
   }
 
-  onClickFolder(folderNo?: string, folderName?: string) {
-    this.fileList = this._getFileList(folderNo, this.fileTreeData);
-    this._updateClickData(folderNo, folderName);
+  onClickFolder(data: StoreRsResponse) {
+    const _rsNo = data.rsNo;
+    const _folderName = data.folderName;
+    this.fileList = this._getFileList(_rsNo, this.fileTreeData);
+    this._updateClickData(_rsNo, _folderName);
   }
 
-  onClickImg(imgNo?: string, imgName?: string) {
+  onClickImg(data: StoreRsResponse) {
     // this._updateClickData(imgNo);
+    this.isImgModalVisible = true;
+    this.clickedImgPath = data.rsPath;
   }
 
   onClickBack(data) {
@@ -111,6 +117,11 @@ export class AllFilesComponent implements OnInit {
 
     }
   }
+
+  onHandleCancel() {
+    this.isImgModalVisible = false;
+  }
+
 
   private async _reloadFileList() {
     this.fileTreeData = await this.storeRsService.getStoreRsTree();
