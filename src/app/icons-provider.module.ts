@@ -10,7 +10,7 @@ import {
   FolderAddOutline, DeleteOutline,
   RollbackOutline, CheckOutline,
   CloseOutline, ClearOutline,
-  CopyOutline
+  CopyOutline, EditOutline
 } from '@ant-design/icons-angular/icons';
 
 const icons = [
@@ -22,7 +22,7 @@ const icons = [
   FolderAddOutline, DeleteOutline,
   RollbackOutline, CheckOutline,
   CloseOutline, ClearOutline,
-  CopyOutline
+  CopyOutline, EditOutline
 ];
 
 @NgModule({

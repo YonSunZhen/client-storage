@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AD_HOST_URL, AdResponse } from '../../http';
 import { HttpClient } from '@angular/common/http';
-import { StoreRsResponse, StoreRsParams, StoreRsTreeResponse } from '../../types';
+import { StoreRsResponse, StoreRsParams, StoreRsTreeResponse, StoreRsDetailParams } from '../../types';
 
 @Injectable()
 export class StoreRsApi {
@@ -26,10 +26,12 @@ export class StoreRsApi {
   }
 
   delRecycle(rsNo: string) {
-    console.log('这里是调试2');
-    console.log({rsNo});
-
     const _url = this._baseUrl.clone().params({rsNo}).push('recycle').value();
     return this.httpClient.delete<AdResponse<string>>(_url).toPromise();
+  }
+
+  updateRsDetail(rsNo: string, param?: StoreRsDetailParams) {
+    const _url = this._baseUrl.clone().push('detail').push(rsNo).value();
+    return this.httpClient.put<AdResponse<number>>(_url, param).toPromise();
   }
 }

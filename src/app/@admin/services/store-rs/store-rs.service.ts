@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StoreRsApi } from './store-rs.api';
-import { StoreRsParams, StoreRsResponse, StoreRsTreeResponse } from '../../types';
+import { StoreRsParams, StoreRsResponse, StoreRsTreeResponse, StoreRsDetailParams } from '../../types';
 
 @Injectable()
 export class StoreRsService {
@@ -41,12 +41,19 @@ export class StoreRsService {
     return _res;
   }
 
+  async updateRsDetail(rsNo: string, param?: StoreRsDetailParams) {
+    const _res = await this.storeRsApi.updateRsDetail(rsNo, param);
+    return _res;
+  }
+
   private _formatRs(data: StoreRsResponse[]) {
 
     const host = 'http://localhost:8080'; // 注入依赖
     const _data: StoreRsResponse[] = JSON.parse(JSON.stringify(data));
     _data.forEach(_d => {
+      _d.isEdit = false;
       if (_d.entityType === 2) {
+        // _d.rsPath = `${host}${_d.rsPathName}`;
         _d.rsPath = `${host}${_d.rsPath}`;
       }
     });

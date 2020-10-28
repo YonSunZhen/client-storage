@@ -1,0 +1,9 @@
+<div class="file-input" [formGroup]="form">
+  <nz-input-group nzSize="small"  [nzAddOnAfter]="addOnAfterTemplate">
+    <input type="text" formControlName="folderName" nz-input />
+  </nz-input-group>
+</div>
+<ng-template #addOnAfterTemplate>
+  <i class="item-file-icon" nz-icon nz-button nzType="check" nzTheme="outline" (click)="onNewCheck(true)"></i>
+  <i class="item-file-icon" nz-icon nzType="close" nzTheme="outline" (click)="onNewCheck(false)"></i>
+</ng-template>

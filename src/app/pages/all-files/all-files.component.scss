@@ -31,26 +31,20 @@
       }
     
       .item-file-name {
-        margin-top: 0.5rem;
+        margin-top: 1rem;
         text-align: center;
       }
   
       .item-file-input {
-        width: 9rem;
-        display: flex;
-        margin-top: 0.5rem;
+        margin-top: 1rem;
         text-align: center;
       }
   
     }
   }
   
-  .item-file-icon:hover {
-    cursor: pointer;
-    color: aqua;
-  }
   
-  .card-body-item:hover {
+  .card-body-item:hover .item-image{
     cursor: pointer;
     background-color: azure;
   }
@@ -96,6 +90,10 @@
   height: 100%;
 }
 
+::ng-deep .ant-modal-close-x {
+  font-size: 40px;
+}
+
 .modal-content {
   display: flex;
   width: 100%;
@@ -104,7 +102,7 @@
   justify-content: center;
 
   img {
-    max-width: 100%;
+    max-width: 80%;
     height: auto;
   }
 }

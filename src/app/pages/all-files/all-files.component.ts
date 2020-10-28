@@ -5,9 +5,10 @@ import {
   FolderService,
   ImageService, ImagePostParams
  } from '@admin';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
 import { copy } from 'iclipboard';
+import { FileNameInput } from './file-name-input/file-name-input.component';
 
 @Component({
   selector: 'app-all-files',
@@ -18,6 +19,7 @@ export class AllFilesComponent implements OnInit {
 
   clickQueue: {no: string, name: string}[] = [{no: '100', name: '所有文件'}];
   currNo = '100';
+  editFolderForm: FormGroup;
   fileList: StoreRsResponse[];
   fileTreeData: StoreRsTreeResponse;
   isNewFolder = false;
@@ -70,9 +72,9 @@ export class AllFilesComponent implements OnInit {
     this._initNewFolderForm();
   }
 
-  async onNewCheck(check: boolean) {
-    if (check) {
-      const _folderName = this.newFolderForm.get('folderName').value;
+  async onAddfolder(data: FileNameInput) {
+    if (data.check) {
+      const _folderName = data.name;
       const _curNo = this.currNo;
       const _addRes = await this.folderService.addFolder({rsParentNo: _curNo, folderName: _folderName});
       if (_addRes.code === 0) {
@@ -122,6 +124,38 @@ export class AllFilesComponent implements OnInit {
     this.isImgModalVisible = false;
   }
 
+  onRename(data: StoreRsResponse) {
+    const _rsId = data.rsId;
+    const _entityName = data.folderName || data.imgOriginName;
+    this.fileList.map(f => {
+      if (f.rsId === _rsId) {
+        f.isEdit = true;
+      }
+    });
+    this._initEditFolderForm(data.rsNo, _entityName);
+  }
+
+  async onEditfolder(data: FileNameInput, file: StoreRsResponse) {
+    const _rsId = file.rsId;
+    const _rsNo = file.rsNo;
+    if (data.check) {
+      const _name = data.name;
+      const _updateRes = await this.storeRsService.updateRsDetail(_rsNo, {
+        fileName: _name,
+        rsParentNo: file.rsParentNo
+      });
+      if (_updateRes.code === 0) {
+        await this._reloadFileList();
+      }
+    } else {
+      this.fileList.map(f => {
+        if (f.rsId === _rsId) {
+          f.isEdit = false;
+        }
+      });
+    }
+  }
+
 
   private async _reloadFileList() {
     this.fileTreeData = await this.storeRsService.getStoreRsTree();
@@ -143,10 +177,19 @@ export class AllFilesComponent implements OnInit {
 
   private _initNewFolderForm() {
     this.newFolderForm = this.fb.group({
-      folderName: ['新建文件夹']
+      folderName: ['']
     });
   }
 
+  private _initEditFolderForm(controlName: string, folderName: string) {
+    if (!this.editFolderForm) {
+      this.editFolderForm = this.fb.group({
+        [controlName]: [folderName]
+      });
+    } else {
+      this.editFolderForm.addControl(controlName, new FormControl(folderName));
+    }
+  }
 
 
   private _updateClickData(no?: string, name?: string) {

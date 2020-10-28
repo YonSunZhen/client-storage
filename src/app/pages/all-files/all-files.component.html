@@ -6,40 +6,53 @@
           <img src="assets/file.png" />
         </div>
         <div class="item-file-input" [formGroup]="newFolderForm">
-          <nz-input-group nzSize="small"  [nzAddOnAfter]="addOnAfterTemplate">
-            <input type="text" formControlName="folderName" nz-input />
-          </nz-input-group>
+          <app-file-name-input formControlName="folderName" (formChange)="onAddfolder($event)"></app-file-name-input>
         </div>
       </div>
-      <ng-template #addOnAfterTemplate>
-        <i class="item-file-icon" nz-icon nz-button nzType="check" nzTheme="outline" (click)="onNewCheck(true)"></i>
-        <i class="item-file-icon" nz-icon nzType="close" nzTheme="outline" (click)="onNewCheck(false)"></i>
-      </ng-template>
     </ng-container>
 
     <ng-container *ngFor="let file of fileList">
       <ng-container *ngIf="file.entityType === 1">
-        <div class="card-body-item" (contextmenu)="contextMenu($event, menu)" (click)="onClickFolder(file)">
-          <div class="item-image">
+        <div class="card-body-item" (contextmenu)="contextMenu($event, menu)">
+          <div class="item-image" (click)="onClickFolder(file)">
             <img src="assets/file.png" />
           </div>
-          <div class="item-file-name">{{file.folderName}}</div>
+
+          <ng-container *ngIf="!file.isEdit">
+            <div class="item-file-name">{{file.folderName}}</div>
+          </ng-container>
+          <ng-container *ngIf="file.isEdit">
+            <div class="item-file-input" [formGroup]="editFolderForm">
+              <app-file-name-input [formControlName]="file.rsNo" (formChange)="onEditfolder($event, file)"></app-file-name-input>
+            </div>
+          </ng-container>
+
         </div>
         <nz-dropdown-menu #menu="nzDropdownMenu">
           <ul nz-menu>
             <li nz-menu-item (click)="onDelRs(file.rsNo)">
               <i nz-icon [nzType]="'delete'"></i>删除
             </li>
+            <li nz-menu-item (click)="onRename(file)">
+              <i nz-icon [nzType]="'edit'"></i>重命名
+            </li>
           </ul>
         </nz-dropdown-menu>
       </ng-container>
       
       <ng-container *ngIf="file.entityType === 2">
-        <div class="card-body-item" (contextmenu)="contextMenu($event, menu)" (click)="onClickImg(file)">
-          <div class="item-image">
+        <div class="card-body-item" (contextmenu)="contextMenu($event, menu)">
+          <div class="item-image" (click)="onClickImg(file)">
             <img [src]="file.rsPath" class="upload-img"/>
           </div>
-          <div class="item-file-name">{{file.imgOriginName}}</div>
+          <ng-container *ngIf="!file.isEdit">
+            <div class="item-file-name">{{file.imgOriginName}}</div>
+          </ng-container>
+          <ng-container *ngIf="file.isEdit">
+            <div class="item-file-input" [formGroup]="editFolderForm">
+              <app-file-name-input [formControlName]="file.rsNo" (formChange)="onEditfolder($event, file)"></app-file-name-input>
+            </div>
+          </ng-container>
         </div>
         <nz-dropdown-menu #menu="nzDropdownMenu">
           <ul nz-menu>
@@ -48,6 +61,9 @@
             </li>
             <li nz-menu-item (click)="onClickCopy(file.rsPath)">
               <i nz-icon [nzType]="'copy'"></i>复制外链
+            </li>
+            <li nz-menu-item (click)="onRename(file)">
+              <i nz-icon [nzType]="'edit'"></i>重命名
             </li>
           </ul>
         </nz-dropdown-menu>

@@ -7,6 +7,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { AllFilesComponent } from './all-files/all-files.component';
 import { NgoModule } from '@ngo';
 import { RecycleComponent } from './recycle/recycle.component';
+import { FileNameInputComponent } from './all-files/file-name-input/file-name-input.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { RecycleComponent } from './recycle/recycle.component';
     PagesComponent,
     AllFilesComponent,
     RecycleComponent,
+    FileNameInputComponent,
   ],
   imports: [
     CommonModule,
