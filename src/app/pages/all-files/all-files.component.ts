@@ -9,6 +9,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
 import { copy } from 'iclipboard';
 import { FileNameInput } from './file-name-input/file-name-input.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-all-files',
@@ -29,11 +30,12 @@ export class AllFilesComponent implements OnInit {
   clickedImgPath = '';
 
   constructor(
-    private nzContextMenuService: NzContextMenuService,
     private fb: FormBuilder,
-    private storeRsService: StoreRsService,
     private folderService: FolderService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private message: NzMessageService,
+    private nzContextMenuService: NzContextMenuService,
+    private storeRsService: StoreRsService,
   ) { }
 
   async ngOnInit() {
@@ -80,6 +82,9 @@ export class AllFilesComponent implements OnInit {
       if (_addRes.code === 0) {
         this._closeNewFolderInput();
         await this._reloadFileList();
+        this.message.success('添加成功');
+      } else {
+        this.message.error('添加失败');
       }
     } else {
       this._closeNewFolderInput();
@@ -103,6 +108,9 @@ export class AllFilesComponent implements OnInit {
     return addRes.subscribe(async res => {
       if (res.code === 0) {
         await this._reloadFileList();
+        this.message.success('上传成功');
+      } else {
+        this.message.error('上传失败');
       }
     });
   }
@@ -115,8 +123,9 @@ export class AllFilesComponent implements OnInit {
     const _updateRsRes = await this.storeRsService.updateRs(rsNo, {rsStatus: 0});
     if (_updateRsRes.code === 0) {
       await this._reloadFileList();
+      this.message.success('删除成功');
     } else {
-
+      this.message.error('删除失败');
     }
   }
 
@@ -146,6 +155,9 @@ export class AllFilesComponent implements OnInit {
       });
       if (_updateRes.code === 0) {
         await this._reloadFileList();
+        this.message.success('修改成功');
+      } else {
+        this.message.error('修改失败');
       }
     } else {
       this.fileList.map(f => {

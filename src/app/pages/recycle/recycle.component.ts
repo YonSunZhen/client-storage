@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreRsService, StoreRsResponse } from '@admin';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-recycle',
@@ -12,6 +13,7 @@ export class RecycleComponent implements OnInit {
   fileList: StoreRsResponse[];
   isCardLoading = false;
   constructor(
+    private message: NzMessageService,
     private nzContextMenuService: NzContextMenuService,
     private storeRsService: StoreRsService,
   ) { }
@@ -27,8 +29,9 @@ export class RecycleComponent implements OnInit {
     const _updateRes = await this.storeRsService.updateRs(rsNo, {rsStatus: 1});
     if (_updateRes.code === 0) {
       this.fileList = await this._getFileList();
+      this.message.success('还原成功');
     } else {
-
+      this.message.error('还原失败');
     }
     this.isCardLoading = false;
   }
@@ -38,6 +41,9 @@ export class RecycleComponent implements OnInit {
     const _delRes = await this.storeRsService.delRecycle(_rsNo);
     if (_delRes.code === 0) {
       this.fileList = await this._getFileList();
+      this.message.success('已彻底删除');
+    } else {
+      this.message.error('删除失败');
     }
   }
 

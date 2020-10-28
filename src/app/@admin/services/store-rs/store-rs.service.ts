@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import { AD_HOST_URL } from '../../http';
 import { StoreRsApi } from './store-rs.api';
 import { StoreRsParams, StoreRsResponse, StoreRsTreeResponse, StoreRsDetailParams } from '../../types';
 
 @Injectable()
 export class StoreRsService {
+
+  private _baseUrl = AD_HOST_URL().clone().value();
 
   constructor(private storeRsApi: StoreRsApi) { }
 
@@ -48,13 +51,13 @@ export class StoreRsService {
 
   private _formatRs(data: StoreRsResponse[]) {
 
-    const host = 'http://localhost:8080'; // 注入依赖
+    // const host = 'http://localhost:8080'; // 注入依赖
     const _data: StoreRsResponse[] = JSON.parse(JSON.stringify(data));
     _data.forEach(_d => {
       _d.isEdit = false;
       if (_d.entityType === 2) {
         // _d.rsPath = `${host}${_d.rsPathName}`;
-        _d.rsPath = `${host}${_d.rsPath}`;
+        _d.rsPath = `${this._baseUrl}${_d.rsPath}`;
       }
     });
     return _data;
