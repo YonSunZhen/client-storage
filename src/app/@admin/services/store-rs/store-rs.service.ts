@@ -58,6 +58,7 @@ export class StoreRsService {
       if (_d.entityType === 2) {
         // _d.rsPath = `${host}${_d.rsPathName}`;
         _d.rsPath = `${this._baseUrl}${_d.rsPath}`;
+        _d.thumRsPath = _d.thumRsPath ? `${this._baseUrl}${_d.thumRsPath}` : null;
       }
     });
     return _data;

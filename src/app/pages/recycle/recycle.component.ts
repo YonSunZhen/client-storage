@@ -15,7 +15,7 @@ export class RecycleComponent implements OnInit {
   constructor(
     private message: NzMessageService,
     private nzContextMenuService: NzContextMenuService,
-    private storeRsService: StoreRsService,
+    private storeRsService: StoreRsService
   ) { }
 
   async ngOnInit() {

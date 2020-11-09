@@ -43,7 +43,7 @@
       <ng-container *ngIf="file.entityType === 2">
         <div class="card-body-item" (contextmenu)="contextMenu($event, menu)">
           <div class="item-image" (click)="onClickImg(file)">
-            <img [src]="file.rsPath" class="upload-img"/>
+            <img [src]="file.thumRsPath || file.rsPath" class="upload-img"/>
           </div>
           <ng-container *ngIf="!file.isEdit">
             <div class="item-file-name">{{file.imgOriginName}}</div>

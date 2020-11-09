@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 let HOST_URL;
 HOST_URL = 'http://localhost:8080';
 
+// HOST_URL = 'http://122.51.184.238/storage/api/v1';
+
 
 if (environment.production) {
   // 正式版

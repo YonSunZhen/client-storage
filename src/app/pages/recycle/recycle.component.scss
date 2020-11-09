@@ -24,8 +24,10 @@
         height: 3.5rem;
   
         .upload-img {
-          max-width: 3.5rem; 
-          height: auto;
+          max-width: 3rem; 
+          max-height: 5.4rem;
+          min-width: 3rem;
+          min-height: 3rem;
         }
       }
     

@@ -17,6 +17,7 @@ export interface StoreRsResponse extends FolderResponse, ImageResponse {
   rsCreateAt?: Date;
   rsStatus?: number; // 0删除 1存在
   isEdit?: boolean; // false非编辑状态 true编辑状态
+  thumRsPath?: string;
 }
 
 export interface StoreRsParams {

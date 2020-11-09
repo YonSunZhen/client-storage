@@ -23,7 +23,7 @@
       <ng-container *ngIf="file.entityType === 2">
         <div class="card-body-item" (contextmenu)="contextMenu($event, menu)">
           <div class="item-image">
-            <img [src]="file.rsPath" class="upload-img"/>
+            <img [src]="file.thumRsPath || file.rsPath" class="upload-img"/>
           </div>
           <div class="item-file-name">{{file.imgOriginName}}</div>
         </div>
